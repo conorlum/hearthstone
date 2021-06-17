@@ -17,6 +17,6 @@ class Card:
 			 return False
 		return True
 
-	def alive(self):
+	def is_alive(self):
 		return self.health > 0
 
