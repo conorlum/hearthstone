@@ -3,7 +3,7 @@ import random
 
 class BoardController:
 
-	def __init__(self, Board1, Board2):
+	def __init__(Board1, Board2):
 		self.Board1 = Board1
 		self.Board2 = Board2
 		self.turn = first_turn()
@@ -25,6 +25,7 @@ class BoardController:
 				defend_queue.remove(defender)
 
 			attack_queue, defend_queue = switch_queues(attack_queue, defend_queue)
+		return is_winner()
 
 	def switch_queues(self, attack, defend):
 		temp = attack
@@ -35,10 +36,10 @@ class BoardController:
 	def other_turn(self):
 		return (self.turn+1)%2
 
-	def get_board(self, int b):
+	def get_board(b):
 		return [Board1, Board2][b]
 
-	def attack(self, Card attacking, Card defending):
+	def attack(self, attacking, defending):
 		defending.take_damage(attacking.attack)
 		attacking.take_damage(defending.attack)
 		return (attacking.is_alive(), defending.is_alive())
