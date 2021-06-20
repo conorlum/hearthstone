@@ -1,14 +1,17 @@
-import BoardController
-import Board
-import Card
+from BoardController import BoardController
+from Board import Board
+from Card import Card
 
 if __name__ == "__main__":
 
-	c23 = Card(2,3)
-	c34 = Card(3,4)
 	b1 = Board()
 	b2 = Board()
-	b1.add_card(c23,0)
-	b2.add_card(c34,0)
+	b1.add_card(Card(2,3),0)
+	b1.add_card(Card(2,3),1)
+	b1.add_card(Card(2,3),2)
+	b1.add_card(Card(2,3),3)
+	b2.add_card(Card(3,4),0)
+	b2.add_card(Card(3,4),0)
+	b2.add_card(Card(3,4),0)
 	BC = BoardController(b1, b2)
 	BC.simulate()
