@@ -1,17 +1,35 @@
 import queue
 import random
+from Card import Card
 
 class Board:
 
 	def __init__(self):
 		self.board = [None] * 7
 
-	def add_card(self, c, pos):
+	def import_board(self, board):
+		self.board = [None] * 7
+		for card in board:
+			if card is not None:	
+				self.board.append(Card(card.attack, card.health))
+			else:
+				self.board.append(card)
+
+	def copy_board(self):
+		ret = []
+		for card in self.board:
+			if card is not None:
+				ret.append(Card(card.attack, card.health))
+			else:
+				ret.append(None)
+		return ret
+
+	def add_card(self, card, pos):
 		if(self.slot_is_empty(pos)):
-			self.board[pos] = c
+			self.board[pos] = card
 
 	def amount_of_cards(self):
-		return len(self.board)
+		return len(self.get_queue())
 
 	def is_empty(self):
 		for card in self.board:
@@ -41,10 +59,12 @@ class Board:
 				ret.append(card)
 		return ret
 
-	def print_board(self):
+	def __str__(self):
+		ret = ""
 		for card in self.board:
 			if card is not None:
-				print(str(card.attack) + "," + str(card.health))
+				ret += str(card)
+		return ret
 
 
 

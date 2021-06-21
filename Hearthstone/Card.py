@@ -16,3 +16,6 @@ class Card:
 	def is_alive(self):
 		return self.health > 0
 
+	def __str__(self):
+		return "(" + str(self.attack) + "," + str(self.health) + ")  "
+
