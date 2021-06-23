@@ -11,7 +11,15 @@ class Board:
 		self.board = [None] * 7
 		for card in board:
 			if card is not None:	
-				self.board.append(Card(card.attack, card.health))
+				self.board.append(Card(
+					card.attack, 
+					card.health, 
+					divine_shield = card.divine_shield,
+					poisonous = card.poisonous,
+					reborn = card.reborn,
+					windfury = card.windfury,
+					taunt = card.taunt
+				))
 			else:
 				self.board.append(card)
 
@@ -19,7 +27,15 @@ class Board:
 		ret = []
 		for card in self.board:
 			if card is not None:
-				ret.append(Card(card.attack, card.health))
+				ret.append(Card(
+					card.attack, 
+					card.health, 
+					divine_shield = card.divine_shield,
+					poisonous = card.poisonous,
+					reborn = card.reborn,
+					windfury = card.windfury,
+					taunt = card.taunt
+				))
 			else:
 				ret.append(None)
 		return ret
