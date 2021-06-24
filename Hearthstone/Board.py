@@ -56,11 +56,24 @@ class Board:
 	def slot_is_empty(self, pos):
 		return self.board[pos] is None
 
+	def has_taunt(self):
+		has_taunt = False
+		taunt = []
+		for card in self.board:
+			if card is not None and card.taunt:
+				has_taunt = True
+				taunt.append(card)
+		return taunt if has_taunt else None
+
 	def attackable_space(self):
 		space = []
 		for i in range(0,len(self.board)-1):
+			card = self.board[i]
 			if self.board[i] is not None:
 				space.append(self.board[i])
+
+		taunt = self.has_taunt()
+		space = taunt if taunt else space
 		return space[random.randint(0,len(space)-1)]
 
 	def clean_board(self):
@@ -72,6 +85,13 @@ class Board:
 		ret = []
 		for card in self.board:
 			if card is not None:
+				if card.windfury:
+					ret.append(card)
+				if card.mega_windfury:
+					ret.append(card)
+					ret.append(card)
+					ret.append(card)
+					
 				ret.append(card)
 		return ret
 

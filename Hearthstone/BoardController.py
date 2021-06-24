@@ -2,6 +2,7 @@ from Board import Board
 import random
 import sys
 import os
+import time
 
 class BoardController:
 
@@ -29,6 +30,7 @@ class BoardController:
 		print("BOARD2:")
 		print(self.Board2)
 		self.blockPrint()
+		start_time = time.time()
 		for i in range(0,simulate_amount):
 			winner, board = self.simulate()
 			self.reset()
@@ -40,7 +42,8 @@ class BoardController:
 				board2win += 1
 
 		self.enablePrint()
-		print(board1win, board2win, tie)
+		end_time = time.time()
+		print("\nSimulation time: " + str(end_time - start_time) + " seconds")
 		print(board1win/simulate_amount)
 		print(board2win/simulate_amount)
 		print(tie/simulate_amount)
@@ -58,9 +61,14 @@ class BoardController:
 			attacker = attack_queue.pop(0)
 			defender = self.get_board(self.other_turn()).attackable_space()
 			attacker_alive, defender_alive = self.attack(attacker, defender)
-			if attacker_alive: 
-				attack_queue.append(attacker)
+			if attacker_alive:
+				if attacker.was_reborn:
+					attack_queue.insert(0,attacker)
+				else:
+					attack_queue.append(attacker)
 			else:
+				while attacker in attack_queue:
+					attack_queue.remove(attacker)
 				self.get_board(self.turn).clean_board()
 
 			if not defender_alive:
@@ -106,12 +114,8 @@ class BoardController:
 
 	def is_winner(self):
 		if (self.Board2.is_empty() and not self.Board1.is_empty()):
-			print("BOARD 1 WON!")
-			self.board_states()
 			return (0, self.Board1)
 		if (self.Board1.is_empty() and not self.Board2.is_empty()):
-			print("BOARD 2 WON!")
-			self.board_states()
 			return (1, self.Board2)
 		if (self.Board1.is_empty() and self.Board2.is_empty()):
 			return (2, None)
