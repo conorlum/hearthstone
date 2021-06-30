@@ -53,7 +53,7 @@ sample_test = {
 	"options": None
 }
 
-print(json.dumps(sample_test))
+# print(json.dumps(sample_test))
 
 data = json.dumps(sample_test)
 BGS_BATTLE_SIMULATION_ENDPOINT = 'https://o5gz4ktmfl.execute-api.us-west-2.amazonaws.com/Prod/{proxy+}'
